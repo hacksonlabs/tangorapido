@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-neutral-950 text-white font-sans antialiased min-h-screen;
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+}
+
+a {
+  @apply text-brand-accent transition hover:underline hover:underline-offset-4 decoration-brand-accent focus-visible:shadow-focus focus-visible:outline-none;
+}
+
+button,
+input,
+select,
+textarea {
+  @apply focus-visible:outline-none focus-visible:shadow-focus;
+}
+
+.card-surface {
+  @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-lg;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-full bg-brand-primary px-6 py-3 text-lg font-semibold text-white shadow-lg transition hover:bg-brand-primary/90 focus-visible:shadow-focus disabled:opacity-60 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-full border border-white/40 bg-transparent px-6 py-3 text-lg font-semibold text-white transition hover:bg-white/10 focus-visible:shadow-focus disabled:opacity-60 disabled:cursor-not-allowed;
+}
+
+.sr-only {
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+}
