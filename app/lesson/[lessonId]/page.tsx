@@ -39,6 +39,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const courseTitle = pickLocalized(lesson.course, 'title', language);
   const lessonTypeKey = `lesson.type.${lesson.lesson_type as 'lesson' | 'exercise'}` as TranslationKey;
   const videoSource = lesson.video_url ?? (await getSignedLessonUrl(lesson.storage_path));
+  const youTubeEmbedUrl = videoSource ? getYouTubeEmbedUrl(videoSource) : null;
 
   return (
     <article className="flex flex-col gap-8">
@@ -61,7 +62,15 @@ export default async function LessonPage({ params }: LessonPageProps) {
         />
       </header>
       <section className="flex flex-col gap-4">
-        {videoSource ? (
+        {youTubeEmbedUrl ? (
+          <iframe
+            src={youTubeEmbedUrl}
+            title={lessonTitle}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="aspect-video w-full overflow-hidden rounded-3xl border border-white/15 shadow-2xl"
+          />
+        ) : videoSource ? (
           <video
             controls
             className="w-full overflow-hidden rounded-3xl border border-white/15 shadow-2xl"
@@ -84,4 +93,32 @@ export default async function LessonPage({ params }: LessonPageProps) {
       </div>
     </article>
   );
+}
+
+function getYouTubeEmbedUrl(url: string) {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, '');
+
+    if (host === 'youtu.be') {
+      const videoId = parsed.pathname.slice(1);
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    }
+
+    if (host.endsWith('youtube.com')) {
+      const embedId = parsed.searchParams.get('v');
+      if (embedId) {
+        return `https://www.youtube.com/embed/${embedId}`;
+      }
+
+      const pathSegments = parsed.pathname.split('/').filter(Boolean);
+      if (pathSegments.length >= 2 && pathSegments[0] === 'embed') {
+        return `https://www.youtube.com/embed/${pathSegments[1]}`;
+      }
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
 }

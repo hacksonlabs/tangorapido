@@ -98,7 +98,7 @@ const DUMMY_RAW_COURSES: RawCourse[] = [
             description_en: 'Overview of the foundational connections that support confident dancing.',
             description_es: 'Resumen de las conexiones fundamentales que sostienen un baile seguro.',
             lesson_type: 'lesson',
-            video_url: 'https://storage.googleapis.com/tango-rapido/demo/pillars-overview.mp4',
+            video_url: 'https://www.youtube.com/watch?v=stmmlwCFE-M',
             storage_path: 'fundamentals/pillars/overview.mp4',
             order_index: 0,
             created_at: DUMMY_TIMESTAMP,
@@ -535,107 +535,6 @@ const DUMMY_RAW_COURSES: RawCourse[] = [
             video_url: 'https://storage.googleapis.com/tango-rapido/demo/etiquette-practicas-milongas.mp4',
             storage_path: 'fundamentals/etiquette/practicas-milongas.mp4',
             order_index: 3,
-            created_at: DUMMY_TIMESTAMP,
-            updated_at: DUMMY_TIMESTAMP
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'demo-course-foundations',
-    slug: 'foundations-of-tango',
-    title_en: 'Foundations of Tango',
-    title_es: 'Fundamentos del Tango',
-    description_en:
-      'Build confidence with posture, embrace, and walking patterns tailored for beginners.',
-    description_es:
-      'Gana confianza con la postura, el abrazo y los patrones de caminata pensados para principiantes.',
-    cover_image_url: null,
-    total_xp: 400,
-    order_index: 1,
-    created_at: DUMMY_TIMESTAMP,
-    updated_at: DUMMY_TIMESTAMP,
-    modules: [
-      {
-        id: 'demo-module-posture',
-        course_id: 'demo-course-foundations',
-        title_en: 'Posture & Connection',
-        title_es: 'Postura y conexión',
-        description_en: 'Settle into the tango embrace with balanced posture and mindful breathing.',
-        description_es: 'Encuentra el abrazo tanguero con postura equilibrada y respiración consciente.',
-        order_index: 1,
-        xp_value: 200,
-        created_at: DUMMY_TIMESTAMP,
-        updated_at: DUMMY_TIMESTAMP,
-        lessons: [
-          {
-            id: 'demo-lesson-posture-basics',
-            module_id: 'demo-module-posture',
-            title_en: 'Posture Basics',
-            title_es: 'Postura básica',
-            description_en: 'Align your spine and soften your knees to move with comfort.',
-            description_es: 'Alinea tu columna y suaviza las rodillas para moverte con comodidad.',
-            lesson_type: 'lesson',
-            video_url: null,
-            storage_path: null,
-            order_index: 1,
-            created_at: DUMMY_TIMESTAMP,
-            updated_at: DUMMY_TIMESTAMP
-          },
-          {
-            id: 'demo-lesson-embrace',
-            module_id: 'demo-module-posture',
-            title_en: 'Finding the Embrace',
-            title_es: 'Encontrar el abrazo',
-            description_en: 'Explore both open and close embraces with gentle partnering tips.',
-            description_es: 'Explora abrazos abiertos y cerrados con consejos suaves para la pareja.',
-            lesson_type: 'lesson',
-            video_url: null,
-            storage_path: null,
-            order_index: 2,
-            created_at: DUMMY_TIMESTAMP,
-            updated_at: DUMMY_TIMESTAMP
-          }
-        ]
-      },
-      {
-        id: 'demo-module-walking',
-        course_id: 'demo-course-foundations',
-        title_en: 'Walking Together',
-        title_es: 'Caminar en pareja',
-        description_en: 'Practice musical walking, pivots, and pauses to flow comfortably.',
-        description_es: 'Practica caminatas musicales, pivotes y pausas para fluir cómodamente.',
-        order_index: 2,
-        xp_value: 200,
-        created_at: DUMMY_TIMESTAMP,
-        updated_at: DUMMY_TIMESTAMP,
-        lessons: [
-          {
-            id: 'demo-lesson-steps',
-            module_id: 'demo-module-walking',
-            title_en: 'Tango Walk Essentials',
-            title_es: 'Caminata esencial',
-            description_en: 'Coordinate steps with a partner using quick drills and musical cues.',
-            description_es: 'Coordina pasos con una pareja usando ejercicios y referencias musicales.',
-            lesson_type: 'lesson',
-            video_url: null,
-            storage_path: null,
-            order_index: 1,
-            created_at: DUMMY_TIMESTAMP,
-            updated_at: DUMMY_TIMESTAMP
-          },
-          {
-            id: 'demo-lesson-pivots',
-            module_id: 'demo-module-walking',
-            title_en: 'Gentle Pivots',
-            title_es: 'Pivotes suaves',
-            description_en: 'Introduce ochos and pivots with balance exercises at the wall.',
-            description_es: 'Introduce ochos y pivotes con ejercicios de equilibrio en la pared.',
-            lesson_type: 'lesson',
-            video_url: null,
-            storage_path: null,
-            order_index: 2,
             created_at: DUMMY_TIMESTAMP,
             updated_at: DUMMY_TIMESTAMP
           }
