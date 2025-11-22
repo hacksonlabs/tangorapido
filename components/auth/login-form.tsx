@@ -17,6 +17,14 @@ export const LoginForm = () => {
   const searchParams = useSearchParams();
   const redirectTo = searchParams?.get('redirectTo') ?? undefined;
   const [state, formAction] = useFormState<AuthActionState, FormData>(login, initialState);
+  const signupHref = (() => {
+    const params = new URLSearchParams();
+    if (redirectTo) {
+      params.set('redirectTo', redirectTo);
+    }
+    params.set('showSignup', '1');
+    return `/?${params.toString()}`;
+  })();
 
   return (
     <form
@@ -63,7 +71,7 @@ export const LoginForm = () => {
       </button>
       <p className="text-center text-base text-white/80">
         {t('auth.noAccount')}{' '}
-        <Link href="/signup" className="font-semibold text-brand-accent">
+        <Link href={signupHref} className="font-semibold text-brand-accent">
           {t('auth.signup')}
         </Link>
       </p>

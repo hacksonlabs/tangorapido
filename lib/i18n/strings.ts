@@ -98,7 +98,7 @@ export const translations: Record<
 > = {
   en: {
     'app.title': 'Tango Rápido',
-    'app.tagline': 'Learn tango faster with gentle guidance.',
+    'app.tagline': 'Learn Tango Faster',
     'nav.roadmap': 'Roadmap',
     'nav.courses': 'Courses',
     'nav.profile': 'Profile',

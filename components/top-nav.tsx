@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { LanguageToggle } from '@/components/language-toggle';
 import { useLanguage } from '@/components/language-provider';
@@ -16,6 +16,7 @@ type TopNavProps = {
 
 export const TopNav = ({ isAuthenticated, isAdmin }: TopNavProps) => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -39,12 +40,32 @@ export const TopNav = ({ isAuthenticated, isAdmin }: TopNavProps) => {
     setMenuOpen(false);
   }, [pathname]);
 
-  const baseLinks = [{ href: '/roadmap', label: t('nav.roadmap') }];
+  const baseLinks = isAuthenticated ? [{ href: '/roadmap', label: t('nav.roadmap') }] : [];
   const adminLinks = isAdmin ? [{ href: '/admin', label: t('nav.admin') }] : [];
 
+  const redirectToParam = searchParams?.get('redirectTo') ?? undefined;
+
+  const loginHref = useMemo(() => {
+    const params = new URLSearchParams();
+    if (redirectToParam) {
+      params.set('redirectTo', redirectToParam);
+    }
+    params.set('showLogin', '1');
+    return `/?${params.toString()}`;
+  }, [redirectToParam]);
+
+  const signupHref = useMemo(() => {
+    const params = new URLSearchParams();
+    if (redirectToParam) {
+      params.set('redirectTo', redirectToParam);
+    }
+    params.set('showSignup', '1');
+    return `/?${params.toString()}`;
+  }, [redirectToParam]);
+
   const unauthLinks = [
-    { href: '/login', label: t('nav.login') },
-    { href: '/signup', label: t('nav.signup') }
+    { href: loginHref, label: t('nav.login') },
+    { href: signupHref, label: t('nav.signup') }
   ];
 
   const links = [...baseLinks, ...adminLinks];

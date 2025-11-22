@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useFormState } from 'react-dom';
 
 import { signup, type AuthActionState } from '@/app/(auth)/auth-actions';
@@ -13,7 +14,17 @@ const initialState = {
 
 export const SignupForm = () => {
   const { t } = useLanguage();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams?.get('redirectTo') ?? undefined;
   const [state, formAction] = useFormState<AuthActionState, FormData>(signup, initialState);
+  const loginHref = (() => {
+    const params = new URLSearchParams();
+    if (redirectTo) {
+      params.set('redirectTo', redirectTo);
+    }
+    params.set('showLogin', '1');
+    return `/?${params.toString()}`;
+  })();
 
   return (
     <form
@@ -76,7 +87,7 @@ export const SignupForm = () => {
       </button>
       <p className="text-center text-base text-white/80">
         {t('auth.haveAccount')}{' '}
-        <Link href="/login" className="font-semibold text-brand-accent">
+        <Link href={loginHref} className="font-semibold text-brand-accent">
           {t('auth.login')}
         </Link>
       </p>
