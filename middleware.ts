@@ -47,7 +47,7 @@ export async function middleware(req: NextRequest) {
       .from('profiles')
       .select('is_admin')
       .eq('user_id', session?.user.id ?? '')
-      .maybeSingle();
+      .maybeSingle<{ is_admin: boolean }>();
 
     if (!profile?.is_admin) {
       const redirectUrl = req.nextUrl.clone();

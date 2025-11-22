@@ -10,13 +10,13 @@ import type { Database } from '@/types/database';
 import { serverEnv } from '@/lib/env';
 
 export const getServerComponentClient = () =>
-  createServerComponentClient<Database>({ cookies });
+  createServerComponentClient<Database>({ cookies }) as unknown as SupabaseClient<Database>;
 
 export const getServerActionClient = () =>
-  createServerActionClient<Database>({ cookies });
+  createServerActionClient<Database>({ cookies }) as unknown as SupabaseClient<Database>;
 
 export const getRouteHandlerClient = () =>
-  createRouteHandlerClient<Database>({ cookies });
+  createRouteHandlerClient<Database>({ cookies }) as unknown as SupabaseClient<Database>;
 
 export const getServiceRoleClient = (): SupabaseClient<Database> => {
   const serviceRoleKey = serverEnv.SUPABASE_SERVICE_ROLE_KEY;

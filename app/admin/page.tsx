@@ -47,6 +47,13 @@ export default async function AdminPage() {
     }))
   }));
 
+  const deleteCourseAction = deleteCourse.bind(null, undefined);
+  const updateCourseAction = updateCourse.bind(null, undefined);
+  const deleteModuleAction = deleteModule.bind(null, undefined);
+  const updateModuleAction = updateModule.bind(null, undefined);
+  const deleteLessonAction = deleteLesson.bind(null, undefined);
+  const updateLessonAction = updateLesson.bind(null, undefined);
+
   return (
     <section className="flex flex-col gap-8">
       <header className="flex flex-col gap-3">
@@ -74,7 +81,7 @@ export default async function AdminPage() {
                     {pickLocalized(course, 'description', language)}
                   </p>
                 </div>
-                <form action={deleteCourse}>
+                <form action={deleteCourseAction}>
                   <input type="hidden" name="id" value={course.id} />
                   <button type="submit" className="btn-secondary">
                     {t('admin.delete')}
@@ -85,7 +92,7 @@ export default async function AdminPage() {
                 <summary className="cursor-pointer px-4 py-2 text-lg font-semibold text-brand-accent">
                   {t('admin.edit')}
                 </summary>
-                <form action={updateCourse} className="flex flex-col gap-3 px-4 py-4">
+                <form action={updateCourseAction} className="flex flex-col gap-3 px-4 py-4">
                   <input type="hidden" name="id" value={course.id} />
                   <label className="flex flex-col gap-2 text-sm text-white/80">
                     <span>Title (EN)</span>
@@ -169,7 +176,7 @@ export default async function AdminPage() {
                             {pickLocalized(module, 'description', language)}
                           </p>
                         </div>
-                        <form action={deleteModule}>
+                        <form action={deleteModuleAction}>
                           <input type="hidden" name="id" value={module.id} />
                           <input type="hidden" name="course_id" value={course.id} />
                           <button type="submit" className="btn-secondary">
@@ -181,7 +188,7 @@ export default async function AdminPage() {
                         <summary className="cursor-pointer px-4 py-2 text-sm font-semibold text-brand-accent">
                           {t('admin.edit')}
                         </summary>
-                        <form action={updateModule} className="flex flex-col gap-3 px-4 py-4 text-sm">
+                        <form action={updateModuleAction} className="flex flex-col gap-3 px-4 py-4 text-sm">
                           <input type="hidden" name="id" value={module.id} />
                           <input type="hidden" name="course_id" value={course.id} />
                           <label className="flex flex-col gap-2 text-white/80">
@@ -258,7 +265,7 @@ export default async function AdminPage() {
                                   </span>
                                   <span>{pickLocalized(lesson, 'description', language)}</span>
                                 </div>
-                                <form action={deleteLesson}>
+                                <form action={deleteLessonAction}>
                                   <input type="hidden" name="id" value={lesson.id} />
                                   <input type="hidden" name="module_id" value={module.id} />
                                   <input type="hidden" name="course_id" value={course.id} />
@@ -271,7 +278,7 @@ export default async function AdminPage() {
                                 <summary className="cursor-pointer px-4 py-2 text-sm font-semibold text-brand-accent">
                                   {t('admin.edit')}
                                 </summary>
-                                <form action={updateLesson} className="flex flex-col gap-2 px-4 py-3">
+                                <form action={updateLessonAction} className="flex flex-col gap-2 px-4 py-3">
                                   <input type="hidden" name="id" value={lesson.id} />
                                   <input type="hidden" name="module_id" value={module.id} />
                                   <input type="hidden" name="course_id" value={course.id} />

@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 
 import { getServerActionClient } from '@/lib/supabase/server';
+import type { Database } from '@/types/database';
 
 export type AuthActionState = {
   success?: boolean;
@@ -84,18 +85,17 @@ export async function signup(_: AuthActionState | undefined, formData: FormData)
   const user = data.user;
 
   if (user) {
-    await supabase.from('profiles').upsert(
-      {
-        user_id: user.id,
-        preferred_language: 'en',
-        xp_total: 0,
-        is_admin: false
-      },
-      {
-        onConflict: 'user_id',
-        ignoreDuplicates: true
-      }
-    );
+    const profilePayload = {
+      user_id: user.id,
+      preferred_language: 'en',
+      xp_total: 0,
+      is_admin: false
+    } satisfies Database['public']['Tables']['profiles']['Insert'];
+
+    await supabase.from('profiles').upsert([profilePayload], {
+      onConflict: 'user_id',
+      ignoreDuplicates: true
+    });
   }
 
   redirect('/roadmap');
