@@ -17,7 +17,12 @@ import { CourseCreateForm } from '@/components/admin/course-create-form';
 import { LessonCreateForm } from '@/components/admin/lesson-create-form';
 import { ModuleCreateForm } from '@/components/admin/module-create-form';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const runtime = 'nodejs';
+
 export default async function AdminPage() {
+  console.log('AdminPage: render start');
   const user = await getCurrentUser();
   const profile = await getCurrentProfile();
 

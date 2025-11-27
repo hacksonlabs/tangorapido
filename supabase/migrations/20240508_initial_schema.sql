@@ -192,3 +192,8 @@ create policy "Awards readable by owner" on public.awards
 
 create policy "Awards insert by owner" on public.awards
   for insert with check (auth.uid() = user_id);
+
+-- Grant base privileges (RLS still enforced). Service role bypasses RLS.
+grant usage on schema public to anon, authenticated, service_role;
+grant select on public.courses, public.modules, public.lessons to anon, authenticated, service_role;
+grant select, insert, update on public.profiles to authenticated, service_role;

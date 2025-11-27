@@ -9,7 +9,12 @@ import { translate } from '@/lib/i18n';
 import { getResolvedLanguage } from '@/lib/server-language';
 import { Progress } from '@/components/ui/progress';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const runtime = 'nodejs';
+
 export default async function RoadmapPage() {
+  console.log('RoadmapPage: render start');
   const user = await getCurrentUser();
 
   if (!user) {
@@ -22,7 +27,12 @@ export default async function RoadmapPage() {
   const t = (key: Parameters<typeof translate>[1], replacements?: Record<string, string | number>) =>
     translate(language, key, replacements);
 
+  console.log('RoadmapPage: fetching courses with progress', { userId: user.id });
   const courses = await getCoursesWithProgress(user.id);
+  console.log('RoadmapPage: fetch complete', {
+    courseCount: courses.length,
+    firstCourseTitle: courses[0]?.title_en
+  });
 
   const roadmapSteps = courses.map((course) => ({
     course,

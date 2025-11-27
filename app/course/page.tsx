@@ -8,7 +8,12 @@ import { translate } from '@/lib/i18n';
 import { getResolvedLanguage } from '@/lib/server-language';
 import { Progress } from '@/components/ui/progress';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const runtime = 'nodejs';
+
 export default async function CoursesPage() {
+  console.log('CoursesPage: render start');
   const user = await getCurrentUser();
 
   if (!user) {
@@ -19,7 +24,12 @@ export default async function CoursesPage() {
   const t = (key: Parameters<typeof translate>[1], replacements?: Record<string, string | number>) =>
     translate(language, key, replacements);
 
+  console.log('CoursesPage: fetching courses with progress', { userId: user.id });
   const courses = await getCoursesWithProgress(user.id);
+  console.log('CoursesPage: fetch complete', {
+    courseCount: courses.length,
+    firstCourseTitle: courses[0]?.title_en
+  });
 
   return (
     <section className="flex flex-col gap-6">

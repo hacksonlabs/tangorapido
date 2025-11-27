@@ -1,7 +1,8 @@
 import { cache } from 'react';
 
 import type { Tables } from '@/types/database';
-import { getServerComponentClient } from '@/lib/supabase/server';
+import { getServerComponentClient, getServiceRoleClient } from '@/lib/supabase/server';
+import { serverEnv } from '@/lib/env';
 
 export const getSession = cache(async () => {
   const supabase = getServerComponentClient();
@@ -12,16 +13,30 @@ export const getSession = cache(async () => {
     return null;
   }
 
+  console.log('Auth: getSession', {
+    hasSession: Boolean(data.session),
+    userId: data.session?.user.id
+  });
   return data.session ?? null;
 });
 
 export const getCurrentUser = cache(async () => {
-  const session = await getSession();
-  return session?.user ?? null;
+  const supabase = getServerComponentClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error('Failed to load user', error);
+    return null;
+  }
+
+  console.log('Auth: getCurrentUser', { userId: data.user?.id });
+  return data.user ?? null;
 });
 
 export const getCurrentProfile = cache(async () => {
-  const supabase = getServerComponentClient();
+  const supabase = serverEnv.SUPABASE_SERVICE_ROLE_KEY
+    ? getServiceRoleClient()
+    : getServerComponentClient();
   const user = await getCurrentUser();
 
   if (!user) {
@@ -43,7 +58,9 @@ export const getCurrentProfile = cache(async () => {
 });
 
 export const ensureProfile = cache(async () => {
-  const supabase = getServerComponentClient();
+  const supabase = serverEnv.SUPABASE_SERVICE_ROLE_KEY
+    ? getServiceRoleClient()
+    : getServerComponentClient();
   const user = await getCurrentUser();
 
   if (!user) {
